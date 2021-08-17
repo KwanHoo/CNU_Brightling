@@ -8,6 +8,7 @@ from PIL import Image # 이미지 관련 모듈
 from enlighten_inference import EnlightenOnnxModel
 import cv2
 import time
+import numpy as np
 
 
 model = EnlightenOnnxModel()
@@ -24,27 +25,50 @@ def RTdetectStart():
 def RTdetectEnd():
     pass
 
-
+image_list = []
+count = 0
 # 파일 추가 (선택한 파일 모두)
 def add_file():          # 복수개의 파일 선택
     files =  filedialog.askopenfilenames(title="개선시킬 저조도 이미지 파일을 선택하세요", \
          filetypes=(("PNG 파일", "*.png"), ("모든 파일", "*.*")), \
               initialdir = "D:/")
 
-    
+    global count
+    global image_list
     # 사용자가 선택한 파일 목록
     for file in files:
         list_file.insert(END, file) # 리스트 파일 프레임에 추가
+        image_list.append(file)
+        count = count + 1
+
+
+
 
 
 # 선택 파일 목록에서 삭제
 def del_file():
     for index in reversed(list_file.curselection()): # reversed : 거꾸로 반환해줌 (인덱스의 경우 뒤에서부터 재껴야됨)
         list_file.delete(index)
+        print(index)
 
 # 선택 영상 파일 미리보기 오픈
 def show_file():
-    pass
+    for index in reversed(list_file.curselection()): # reversed : 거꾸로 반환해줌 (인덱스의 경우 뒤에서부터 재껴야됨)
+        # list_file.delete(index)
+
+        prev = image_list[int(index)]
+        print(prev)
+        replace_prev = prev.replace('\\','/')
+        print(replace_prev)
+        str_prev = 'r\'{}\''.format(replace_prev)
+        print(str_prev)
+        prev_image = cv2.imread(str_prev, cv2.IMREAD_COLOR)
+        # print(type(np.array(prev_image)))
+        print(np.array(prev_image.shape))
+        # cv2.imshow('preview', prev_image)
+        # cv2.waitKey()
+        # cv2.destroyAllWindows()
+    # pass
 
 
 # 저장 경로 (폴더)
@@ -65,20 +89,16 @@ def LLE():
             
         # 포맷
         img_format = cmb_format.get().lower() # 확장자 값 받아와서 소문자로 변경
-        a = list_file.get(0)
-        images = cv2.imread(str(a))
-        
-        # images = [cv2.imread(x) for x in list_file.get(0, END)]
-        # print(list_file.get(0, END)) # 모든 파일 목록을 가지고 오기
-        # images = [Image.open(x) for x in list_file.get(0, END)]
-        # for i in images()
 
-        curr_time = time.strftime("_%Y%m%d_%H%M%S")  # 시간값 ex)20210814_191320
-        processed = model.predict(images)
 
-        file_name = ("LLE{}.".format(curr_time)) + img_format
-        dest_path = os.path.join(txt_dest_path.get(), file_name)  # 저장경로 설정
-        cv2.imwrite(dest_path, processed)
+        for i in range(0, count):
+            a = list_file.get(str(i))
+            images = cv2.imread(str(a))
+            curr_time = time.strftime("_%Y%m%d_%H%M%S")  # 시간값
+            processed = model.predict(images)
+            file_name = ("LLE{}.".format(curr_time)) + img_format
+            dest_path = os.path.join(txt_dest_path.get(), file_name)  # 저장경로 설정
+            cv2.imwrite(dest_path, processed)
 
         
         msgbox.showinfo("알림", "조도개선이 완료되었습니다.")
