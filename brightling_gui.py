@@ -53,21 +53,14 @@ def del_file():
 
 # 선택 영상 파일 미리보기 오픈
 def show_file():
-    for index in reversed(list_file.curselection()): # reversed : 거꾸로 반환해줌 (인덱스의 경우 뒤에서부터 재껴야됨)
-        # list_file.delete(index)
-
+    for index in reversed(list_file.curselection()):
         prev = image_list[int(index)]
-        print(prev)
         replace_prev = prev.replace('\\','/')
-        print(replace_prev)
         str_prev = 'r\'{}\''.format(replace_prev)
-        print(str_prev)
-        prev_image = cv2.imread(str_prev, cv2.IMREAD_COLOR)
-        # print(type(np.array(prev_image)))
-        print(np.array(prev_image.shape))
-        # cv2.imshow('preview', prev_image)
-        # cv2.waitKey()
-        # cv2.destroyAllWindows()
+        prev_image = cv2.imread(prev)
+        cv2.imshow('preview', prev_image)
+        cv2.waitKey()
+        cv2.destroyAllWindows()
     # pass
 
 
