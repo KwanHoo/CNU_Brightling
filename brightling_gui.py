@@ -30,7 +30,7 @@ count = 0
 # 파일 추가 (선택한 파일 모두)
 def add_file():          # 복수개의 파일 선택
     files =  filedialog.askopenfilenames(title="개선시킬 저조도 이미지 파일을 선택하세요", \
-         filetypes=(("PNG 파일", "*.png"), ("모든 파일", "*.*")), \
+         filetypes=(("미디어 파일", "*.png;*.jpg;*.mp4"), ("모든 파일", "*.*")), \
               initialdir = "D:/")
 
     global count
