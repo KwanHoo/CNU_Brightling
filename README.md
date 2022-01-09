@@ -9,10 +9,10 @@
 -  통합관제센터의 저화질 CCTV의 경우 어두운 환경에서 객체 식별에 어려움이 있음.
 -  기존의 저화질 CCTV를 단기간에 모두 교체하기에는 예산 문제가 있음
 
-인터뷰 요청_문제 인식 및 정의
+#### 인터뷰 요청_문제 인식 및 정의
 <img width="685" alt="인터뷰요청" src="https://user-images.githubusercontent.com/49335804/148665514-73bd59f9-b52e-4425-a70c-f1baf51c9b2b.png">
 
-인터뷰 결과_문제점 파악
+#### 인터뷰 결과_문제점 파악
 <img width="704" alt="인터뷰 결과" src="https://user-images.githubusercontent.com/49335804/148665518-db013394-fd7a-4ec3-a9a6-f7e930f2a356.png">
 
 
@@ -47,7 +47,7 @@ epoch 200
 ![training_results2](https://user-images.githubusercontent.com/41338783/141113925-9b06f9fd-69d3-421f-9ba0-6bb735e4b7c9.png)
 
 ### 5. 프로젝트 주요기능
-시스템 서비스
+
 <img width="649" alt="시스템 서비스" src="https://user-images.githubusercontent.com/49335804/148665531-ada32eb7-7852-4162-a938-110fc2caa35b.png">
 
 - 저조도 개선 : 저조도 영상을 입력으로 받아 밝기 개선
